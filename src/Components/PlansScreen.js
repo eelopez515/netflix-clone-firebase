@@ -5,6 +5,8 @@ import { loadStripe } from '@stripe/stripe-js'
 import db from '../API/firebase'
 import '../Style/PlansScreen.css'
 
+const { REACT_APP_STRIPE_KEY } = process.env
+
 function PlansScreen() {
     const [products, setProduct] = useState([])
     const user = useSelector(selectUser)
@@ -63,7 +65,7 @@ function PlansScreen() {
                 alert(`An error occured: ${error.message}`)
             }
             if(sessionId) {
-                const stripe = await loadStripe('pk_test_51HaNmuJq1n75LKGAq4XCTCzgaORzQalo3pW7Lb2N6IdwOjMInS1BhWG0FBtQyoc0tbVOFiChNZeJgqNbMmt8Oy0j00yYsiBFvt')
+                const stripe = await loadStripe(REACT_APP_STRIPE_KEY)
                 stripe.redirectToCheckout({ sessionId })
             }
         })
